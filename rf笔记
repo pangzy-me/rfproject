@@ -1,0 +1,34 @@
+RF支持四种表：
+Settings 、 Variables 、 Test Cases 、 Keywords
+Settings 表，是这个测试套件的全局配置表。
+    比如，说明这个测试套件要使用的测试库、资源文件，测试套件的环境初始化(setup)和清除(teardown)
+    该套件内的标签如：
+        Library         xxx
+        Suite Setup     xxx
+        Test Setup      xxx
+        Test Teardown   xxx
+        Force Tags      xxx
+        Test Template   xxx
+        Resource        xxx
+Test Cases 表，是用来定义这个测试套件的测试用例的。
+    每个测试用例大概可以分为配置部分和主体部分
+        用例配置部分：
+            [Documentation] 该用例的文字说明
+            [Tags] 该用例的标签
+            [Setup] [Teardown] 该用例的初始化和清除操作
+            [Template] 声明该用例是模板关键字驱动的。本用例只包含测试数据。
+            [Timeout] 设置用例超时时间
+Variables 表，就是这个测试套件的全局变量表。
+Keywords 表，是用来定义这个测试套件的用户关键字表。
+
+
+1.关键字是有测试库提供的，可以理解为一个一个的Python函数。关键字大小写不敏感，甚至可以随意中间添加空格。
+  如果需要存储关键字的返回值，则使用一个变量保存返回值即可。
+2.RF中的变量，实质上就是一个Python变量。指向一个Python对象。
+3.RF中对变量有不同的用法：
+  scalar方式定义变量 ${var} 直接把变量对应的Python对象传递给关键字对应的函数
+  list方式定义变量 @{var} 展开list中的每个元素，作为多个参数传入。$返回的是[1,2,3]列表；@返回的是1  2  3
+  dictionary方式定义变量 &{var} 展开dict中的每个元素，作为多个参数传入
+  访问环境变量 %{var}
+
+
