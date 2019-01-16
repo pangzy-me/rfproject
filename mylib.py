@@ -11,10 +11,23 @@ def addtwo(a, b):
     return "a+b=%s" % (a+b)
 
 
-def lista():
+def printargs(*args,  **kwargs):
+    for arg in args:
+        print(repr(arg))    # 返回一个对象的string格式
+    for k, v in kwargs.items():
+        print(repr(k) + ':' + repr(v))
+
+
+def returnlist():
     return [1, 2, 3]
 
 
-def printlist(*aa):
-    print(lista())
+def returndict():
+    return {
+        'key1': 'value1',
+        'key2': 'value2'
+    }
+
+
+printargs('aa', 'bb', key1='value1', key2='value2')
 

@@ -9,11 +9,12 @@ Library  mylib
 #    ${var3}=  addtwo  ${var1}  ${var2}
 #    log to console  ${var3}
 
-#    ${listvar}  lista
-#    printlist  ${listvar}   # 传什么打印什么
-#    printlist  @{listvar}   # 展开所传列表的内容
-#    printlist  &{listvar}[key]   # 如果变量是字典，使用键值对直接取值
-
+    ${listvar}  returnlist
+    printargs  ${listvar}   # 传什么打印什么
+    printargs  @{listvar}   # 展开所传列表的内容
+    ${dictvar}  returndict
+    printargs  &{dictvar}[key1]   # 如果变量是字典，使用键值对直接取值
+    log to console  ${dictvar}    # 将返回的数据输出到控制台
 #   :for 实现循环
 
 
