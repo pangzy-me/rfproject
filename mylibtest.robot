@@ -1,5 +1,7 @@
 *** Settings ***
 Library  mylib
+Library  Dialogs
+Library  Collections    # 针对list和dictionary的处理
 
 *** Test Cases ***
 字符串列表字典传参
@@ -47,4 +49,41 @@ FOR循环range使用3
     [Documentation]  间隔2，循环打印 1-10中的数字
     :for  ${index}  in range  1  11  2    # 有下限，有上限，有间隔
     \   log to console  ${index}
+
+条件判断用例
+    ${returnHtml}  getwebinfo
+    run keyword if  '201a9' in $returnHtml and 'UTaC' in $returnHtml  log to console  是2019年的UTC时间
+    # 换行使用三个点 .
+    ...  ELSE IF  '201a9' in $returnHtml  log to console  是2019年  # ELSE IF 必须大写
+    ...  ELSE IF  'UTaC' in $returnHtml  log to console  是UTC时间
+    ...  ELSE  LOG TO CONSOLE  不是2019年的UTC时间     # ELSE 是run keyword if 的分支，必须大写
+
+循环及条件判断混合
+    :for  ${value}  in range  10000
+    \  ${num}  get value from user  请输入体重数字  60  # 默认值为60
+    \  run keyword if  $num=='over'  exit for loop
+    \  log to console  体重为${num}
+    \  run keyword if   int($num)>60  log to console  体重超过了60,为${num}
+#    \  ...  ELSE  log to console  体重太轻
+
+创建列表关键字
+    ${list}=  create list  a  b  ${1}   # 表示数字变量
+    append to list  ${list}  hello  world
+    log to console  ${list}
+
+创建字典关键字
+    ${dict}=  create dictionary  a=1  b=2
+    set to dictionary  ${dict}  c=3
+    log to console  ${dict}
+
+#evaluate关键字可以方便定义列表
+evaluate关键字使用
+    ${var}=  evaluate  888
+    log to console  ${var}
+    ${list}=  evaluate  ['hello', 0, 3.14]
+    log to console  ${list}
+    ${list*N}=  evaluate  ['hello'] * 10
+    log to console  ${list*N}
+    ${dict}=  evaluate  {'sex':'man', 'age':22}
+    log to console  ${dict}
 

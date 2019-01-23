@@ -31,9 +31,50 @@ Keywords 表，是用来定义这个测试套件的用户关键字表。
   dictionary方式定义变量 &{var} 展开dict中的每个元素，作为多个参数传入
   访问环境变量 %{var}
 
+
+Evaluate
+  直接使用Python代码表达式来生成一个结果
+    ${var}=  set variable  ${888}   #只是个RF中的表达式
+  完全可以写成
+    ${var}=  evaluate  888  #特殊的关键字，参数会当做python表达式去执行
+  复杂的表达式
+    ${var}=  evaluate  ['hello']*5
+
+
 :FOR 循环
   遍历list变量
   in range 的用法
+
+pycharm中使用alt，及鼠标拖动，实现列模式编辑
+
+
+条件判断
+  使用run keyword if 关键字做条件判断
+
+
+初始化与清除
+    setup  是测试一个用例(或者套件)前要做的事情，初始化动作。
+    teardown  是测试后要做的事情(如果对其他用例有影响，需清除)
+    在RF中，每个测试套件目录、测试套件文件、测试用例 都可以有自己的setup和teardown
+    所有的setup和teardown操作都 只能由一个关键字语句 构成
+
+测试用例的setup、teardown，仅在单个测试用例中使用setup和teardown
+测试套件文件的setup、teardown，写在测试套件文件的Settings表中
+    两种类型：
+        Suite setup/teardown  进入和退出这个suite执行用例前后必须执行且只分别执行一次
+        Test  setup/teardown  如果suite内的 用例 本身没有自己的setup/teardown，才执行。(用例缺省的初始化、清除)
+测试套件目录的setup、teardown，写在其目录下的初始化文件 __init__.txt 或者 __init__.robot 里面的Settings表中
+    两种类型：
+        Suite setup/teardown  进入和退出这个suite执行用例前后必须执行且只分别执行一次
+        Test  setup/teardown  如果suite内的 用例、或者子套件本身没有自己的setup/teardown，才执行(就近原则使用)。
+    执行命令：
+        robot suite1    #执行整个测试套件
+        robot --suite st1 --suite st2 suite1
+
+注意：测试套件目录的套件执行顺序，是按照字母的顺序来执行。
+
+
+
 
 
 

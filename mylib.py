@@ -1,4 +1,5 @@
 import os
+import requests
 
 
 def opencalc():
@@ -29,5 +30,13 @@ def returndict():
     }
 
 
-printargs('aa', 'bb', key1='value1', key2='value2')
+def getWebInfo():
+    response = requests.get('http://mirrors.163.com/centos/timestamp.txt')
+    return response.text
+
+
+# getWebInfo()
+# printargs('aa', 'bb', key1='value1', key2='value2')
+
+
 
